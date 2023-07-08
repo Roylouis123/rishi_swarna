@@ -127,11 +127,6 @@ export default function NavBar() {
       <Toolbar
         sx={{
           justifyContent: "space-between",
-          borderBottom: `2px solid ${
-            location.pathname === "/ProductCatalog"
-              ? theme.palette.secondary.main
-              : "transparent"
-          }`,
         }}
       >
         <RouterLink to="/">

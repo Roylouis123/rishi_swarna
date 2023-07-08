@@ -11,11 +11,11 @@ import {
 import { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../Containers/Firebase";
-import { map, filter } from "lodash";
+import { map, filter, isEmpty } from "lodash";
 import Checkout from "../CheckoutForm/Checkout";
 import heroImg from "../../assets/hero.png";
 
-export default function Bestow() {
+export default function SoftTouch() {
   const [product, setProduct] = useState([]);
   const [usetypes, setusetypes] = useState("");
   const [selectedSizes, setSelectedSizes] = useState("");
@@ -25,6 +25,8 @@ export default function Bestow() {
   const [Alldata, setAlldata] = useState({});
   const [selectedProductID, setSelectedProductID] = useState("");
   const [selectedProductName, setSelectedProductName] = useState([]);
+  const [showImg, setshowImg] = useState(heroImg)
+
   useEffect(() => {
     setAlldata({
       ProductID: selectedProductID,
@@ -148,10 +150,10 @@ export default function Bestow() {
             mb={4}
             sx={{ backgroundColor: "#4b7c21", color: "white" }}
           >
-            SoftTouch
+            Bestow
           </Typography>
           <Stack direction="row" spacing={1} my={1} alignItems="center">
-            <Typography variant="p" sx={{ color: "grey", width: '4rem' }}> Types : </Typography>
+            <Typography variant="p" sx={{ fontWeight: '500', width: '4rem' }}> Types : </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {map(product, (u, i) => (
                 <Box
@@ -159,6 +161,8 @@ export default function Bestow() {
                   onClick={() => {
                     handleClick(u.Id);
                     setSelectedProductID(u.ProductID);
+                    setshowImg(isEmpty(u.imageUrl) ? heroImg : u.imageUrl);
+
                   }}
                 >
                   <Chip
@@ -177,7 +181,7 @@ export default function Bestow() {
           <Divider />
 
           <Stack direction="row" spacing={1} my={1} alignItems="center">
-            <Typography variant="p" sx={{ color: "grey", width: '4rem' }}>  Models : </Typography>
+            <Typography variant="p" sx={{ fontWeight: '500', width: '4rem' }}>  Models : </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {map(selectedProductName, (u, i) => (
                 <Box key={i}>
@@ -198,7 +202,7 @@ export default function Bestow() {
           <Divider />
 
           <Stack direction="row" spacing={1} my={1} alignItems="center">
-            <Typography variant="p" sx={{ color: "grey", width: '4rem' }}>  Sizes : </Typography>
+            <Typography variant="p" sx={{ fontWeight: '500', width: '4rem' }}>  Sizes : </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {map(selectedProductName, (o, i) =>
                 map(o.selectedSizes, (u) => (
@@ -232,7 +236,7 @@ export default function Bestow() {
           <Divider />
 
           <Stack direction="row" spacing={1} my={1} alignItems="center">
-            <Typography variant="p" sx={{ color: "grey", width: '4rem' }}>  Linning : </Typography>
+            <Typography variant="p" sx={{ fontWeight: '500', width: '4rem' }}>  Linning : </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {map(selectedProductName, (o, i) =>
                 map(o.selectedLinning, (u) => (
@@ -263,7 +267,7 @@ export default function Bestow() {
           <Divider />
 
           <Stack direction="row" spacing={1} my={1} alignItems="center">
-            <Typography variant="p" sx={{ color: "grey", width: '4rem' }}>  Colors : </Typography>
+            <Typography variant="p" sx={{ fontWeight: '500', width: '4rem' }}>  Colors : </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {map(selectedProductName, (o, i) =>
                 map(o.selectedColors, (u) => (
@@ -290,7 +294,7 @@ export default function Bestow() {
           <Divider />
 
           <Stack direction="row" spacing={1} my={1} alignItems="center">
-            <Typography variant="p" sx={{ color: "grey", width: '4rem' }}>  Stroke : </Typography>
+            <Typography variant="p" sx={{ fontWeight: '500', width: '4rem' }}>  Stroke : </Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {map(selectedProductName, (o, i) =>
                 map(o.selectedstroke, (u) => (
@@ -316,11 +320,25 @@ export default function Bestow() {
           </Stack>
           <Divider />
 
+          <Box direction="row" alignItems="center" spacing={1} my={1}>
+            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>  Description: </Typography>{map(selectedProductName, (o) => o.description)}
+          </Box>
+          <Divider />
+
+          <Box direction="row" alignItems="center" spacing={1} my={1}>
+            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>  Features: </Typography>{map(selectedProductName, (o) => o.features)}
+          </Box>
+          <Divider />
+
+          <Box direction="row" alignItems="center" spacing={1} my={1}>
+            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>  Uses: </Typography> {map(selectedProductName, (o) => o.uses)}
+          </Box>
+
           <MyComponent Alldata={Alldata} />
         </Grid>
         <Grid
           item
-          md={2}
+          md={5}
           py={4}
           pr={1}
           sx={{
@@ -329,7 +347,7 @@ export default function Bestow() {
             flexDirection: "column",
           }}
         >
-          <img style={{ width: "100%" }} src={heroImg} alt="Hero" />
+          <img style={{ width: "100%" }} src={showImg} alt="Hero" />
         </Grid>
       </Grid>
     </Box>
@@ -351,7 +369,7 @@ const MyComponent = ({ Alldata }) => {
         <Box>
           <Button
             variant="contained"
-            sx={{ width: "100px",marginTop: '1rem', borderRadius: '0.5rem'  }}
+            sx={{ width: "100px", marginTop: '1rem', borderRadius: '0.5rem' }}
             onClick={handleOpen}
           >
             Checkout

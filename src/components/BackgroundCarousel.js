@@ -30,7 +30,7 @@ const BackgroundCarousel = ({ images }) => {
       sx={{
         position: "relative",
         width: "100%",
-        height: isMobile ? 300 : 600, // Adjust the height for mobile and desktop
+        height: isMobile ? 290 : 610, // Adjust the height for mobile and desktop
         overflow: "hidden",
       }}
     >
