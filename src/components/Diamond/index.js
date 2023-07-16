@@ -321,17 +321,17 @@ export default function Diamond() {
           <Divider />
 
           <Box direction="row" alignItems="center" spacing={1} my={1}>
-            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>  Description: </Typography>{map(selectedProductName, (o) => o.description)}
+            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>Description: </Typography>{map(selectedProductName, (o) => o.description)}
           </Box>
           <Divider />
 
           <Box direction="row" alignItems="center" spacing={1} my={1}>
-            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>  Features: </Typography>{map(selectedProductName, (o) => o.features)}
+            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>Features: </Typography>{map(selectedProductName, (o) => o.features)}
           </Box>
           <Divider />
 
           <Box direction="row" alignItems="center" spacing={1} my={1}>
-            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>  Uses: </Typography> {map(selectedProductName, (o) => o.uses)}
+            <Typography variant="p" sx={{ fontWeight: '500', lineHeight: "5px" }}>Uses: </Typography> {map(selectedProductName, (o) => o.uses)}
           </Box>
 
           <MyComponent Alldata={Alldata} />
